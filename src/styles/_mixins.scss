@@ -1,0 +1,65 @@
+// ── Responsive ───────────────────────────────────────────
+@mixin mobile {
+  @media (max-width: #{$bp-mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{$bp-tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (max-width: #{$bp-desktop}) {
+    @content;
+  }
+}
+
+// ── Flexbox ──────────────────────────────────────────────
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// ── Bouton ───────────────────────────────────────────────
+@mixin btn($bg, $color: white) {
+  background-color: $bg;
+  color: $color;
+  border: none;
+  border-radius: $border-radius;
+  padding: $space-3 $space-6;
+  cursor: pointer;
+  font-size: $font-size-base;
+  transition:
+    opacity 0.2s ease,
+    transform 0.1s ease;
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// ── Card ─────────────────────────────────────────────────
+@mixin card {
+  background: $color-white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  padding: $space-8;
+}
