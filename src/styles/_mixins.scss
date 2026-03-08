@@ -1,3 +1,4 @@
+@use "variables" as *;
 // ── Responsive ───────────────────────────────────────────
 @mixin mobile {
   @media (max-width: #{$bp-mobile}) {
