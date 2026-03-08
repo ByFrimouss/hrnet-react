@@ -1,16 +1,42 @@
-# React + Vite
+# HRnet React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Conversion de l'application HRnet de WealthHealth — de jQuery vers React.
+> Projet réalisé dans le cadre de la formation OpenClassrooms Développeur React.
 
-Currently, two official plugins are available:
+## Stack technique
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 18 + Vite
+- React Router DOM
+- Redux Toolkit + React Redux
+- SASS / CSS Modules
+- TanStack Table
+- react-datepicker
+- react-select
+- @byfrimouss/hrnet-modal-react
 
-## React Compiler
+## Installation
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+git clone https://github.com/byfrimouss/hrnet-react.git
+cd hrnet-react
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+## Pages
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **/** — Create Employee : formulaire de création d'un employé
+- **/employee-list** — Employee List : tableau avec recherche, tri et pagination
+
+## Scripts
+
+```bash
+npm run dev      # Lance le serveur de développement
+npm run build    # Build de production
+npm run preview  # Prévisualise le build
+npm run lint     # Vérifie le code avec ESLint
+```
+
+## Licence
+
+MIT
