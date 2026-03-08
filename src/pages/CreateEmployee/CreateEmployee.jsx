@@ -6,6 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { addEmployee } from "../../features/employees/employeesSlice";
 import { US_STATES, DEPARTMENTS } from "../../data/constants";
 import styles from "./CreateEmployee.module.scss";
+import Modal from "../../components/Modal/Modal";
 
 /**
  * @component CreateEmployee
@@ -16,6 +17,7 @@ import styles from "./CreateEmployee.module.scss";
  */
 function CreateEmployee() {
   const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   /**
    * État du formulaire — tous les champs sont contrôlés
@@ -83,7 +85,7 @@ function CreateEmployee() {
       }),
     );
 
-    alert("Employee created successfully!");
+    setIsModalOpen(true);
 
     // Remet le formulaire à zéro
     setForm({
@@ -236,6 +238,13 @@ function CreateEmployee() {
           Save Employee
         </button>
       </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Employee Created!"
+        message="The new employee has been successfully saved."
+      />
     </main>
   );
 }

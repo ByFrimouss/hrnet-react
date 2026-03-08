@@ -1,0 +1,81 @@
+@use "../../styles/variables" as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease forwards;
+}
+
+.modal {
+  background: $color-white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-lg;
+  padding: $space-8;
+  width: 90%;
+  max-width: 480px;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.25s ease forwards;
+}
+
+.closeButton {
+  position: absolute;
+  top: $space-4;
+  right: $space-4;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: $color-text-light;
+  cursor: pointer;
+  padding: $space-1 $space-2;
+  border-radius: $border-radius-sm;
+  transition:
+    color 0.15s,
+    background 0.15s;
+
+  &:hover {
+    color: $color-text;
+    background: $color-bg;
+  }
+}
+
+.title {
+  font-size: $font-size-xl;
+  color: $color-primary;
+  margin-bottom: $space-4;
+  margin-top: 0;
+  padding-right: $space-8;
+}
+
+.message {
+  color: $color-text-light;
+  line-height: 1.6;
+  font-size: $font-size-base;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
