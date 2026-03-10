@@ -194,8 +194,9 @@ function CreateEmployee() {
             </div>
 
             <div className={styles.field}>
-              <label>State</label>
+              <label htmlFor="state-select">State</label>
               <Select
+                inputId="state-select"
                 options={US_STATES}
                 value={form.state}
                 onChange={(opt) => handleSelect("state", opt)}
@@ -223,8 +224,9 @@ function CreateEmployee() {
           <h2 className={styles.sectionTitle}>Department</h2>
 
           <div className={styles.field} style={{ maxWidth: "300px" }}>
-            <label>Department</label>
+            <label htmlFor="department-select">Department</label>
             <Select
+              inputId="department-select"
               options={DEPARTMENTS}
               value={form.department}
               onChange={(opt) => handleSelect("department", opt)}

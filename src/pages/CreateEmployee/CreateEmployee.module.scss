@@ -85,7 +85,7 @@
 }
 
 .submitBtn {
-  @include btn($color-accent);
+  @include btn($color-accent, #1a1a1a);
   margin-top: $space-6;
   font-size: $font-size-lg;
   padding: $space-3 $space-8;
