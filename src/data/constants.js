@@ -44,6 +44,7 @@ export const US_STATES = [
   { value: "OK", label: "Oklahoma" },
   { value: "OR", label: "Oregon" },
   { value: "PA", label: "Pennsylvania" },
+  { value: "RE", label: "Reunion" },
   { value: "RI", label: "Rhode Island" },
   { value: "SC", label: "South Carolina" },
   { value: "SD", label: "South Dakota" },

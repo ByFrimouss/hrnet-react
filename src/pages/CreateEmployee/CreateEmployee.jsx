@@ -52,7 +52,6 @@ function CreateEmployee() {
    * - âge minimum pour travailler : 16 ans
    * - âge maximum cohérent : 100 ans
    */
-
   const today = new Date();
 
   const minBirthDate = new Date();
@@ -97,11 +96,9 @@ function CreateEmployee() {
      * RÉINITIALISATION DES ERREURS
      * ==============================
      */
-
     const newErrors = {};
 
     /* VALIDATION NOM / PRÉNOM */
-
     if (form.firstName.trim().length < 3) {
       newErrors.firstName = "First name must contain at least 3 characters.";
     }
@@ -115,16 +112,13 @@ function CreateEmployee() {
      * VALIDATION DATE DE NAISSANCE
      * ==============================
      */
-
     if (!form.dateOfBirth) {
       newErrors.dateOfBirth = "Date of birth is required.";
     } else {
       const age = today.getFullYear() - form.dateOfBirth.getFullYear();
-
       if (age < 16) {
         newErrors.dateOfBirth = "Employee must be at least 16 years old.";
       }
-
       if (age > 100) {
         newErrors.dateOfBirth = "Employee age cannot exceed 100 years.";
       }
@@ -135,14 +129,12 @@ function CreateEmployee() {
      * VALIDATION DATE D'EMBAUCHE
      * ==============================
      */
-
     if (!form.startDate) {
       newErrors.startDate = "Start date is required.";
     } else {
       if (form.startDate > today) {
         newErrors.startDate = "Start date cannot be in the future.";
       }
-
       if (form.dateOfBirth && form.startDate < form.dateOfBirth) {
         newErrors.startDate = "Start date cannot be before birth date.";
       }
@@ -150,14 +142,12 @@ function CreateEmployee() {
 
     /**
      * ==============================
-     * VALIDATION ZIP CODE
+     * VALIDATION ZIP CODE (NON OBLIGATOIRE)
      * ==============================
+     * Si rempli, doit contenir exactement 5 chiffres
      */
-
-    const zipRegex = /^\d{5}$/;
-
-    if (!zipRegex.test(form.zipCode)) {
-      newErrors.zipCode = "Zip code must contain exactly 5 digits.";
+    if (form.zipCode && !/^\d{5}$/.test(form.zipCode)) {
+      newErrors.zipCode = "Zip code must be 5 digits.";
     }
 
     /**
@@ -166,7 +156,6 @@ function CreateEmployee() {
      * SI ERREURS
      * ==============================
      */
-
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -187,7 +176,6 @@ function CreateEmployee() {
     );
 
     setIsModalOpen(true);
-
     setErrors({});
 
     // Remet le formulaire à zéro
@@ -226,8 +214,6 @@ function CreateEmployee() {
                 required
                 minLength={3}
               />
-
-              {/* Affichage erreur */}
               {errors.firstName && (
                 <p className={styles.error}>{errors.firstName}</p>
               )}
@@ -245,7 +231,6 @@ function CreateEmployee() {
                 required
                 minLength={3}
               />
-
               {errors.lastName && (
                 <p className={styles.error}>{errors.lastName}</p>
               )}
@@ -265,7 +250,6 @@ function CreateEmployee() {
                 minDate={minBirthDate}
                 maxDate={maxBirthDate}
               />
-
               {errors.dateOfBirth && (
                 <p className={styles.error}>{errors.dateOfBirth}</p>
               )}
@@ -282,7 +266,6 @@ function CreateEmployee() {
                 dropdownMode="select"
                 maxDate={today}
               />
-
               {errors.startDate && (
                 <p className={styles.error}>{errors.startDate}</p>
               )}
@@ -340,10 +323,8 @@ function CreateEmployee() {
                 value={form.zipCode}
                 onChange={handleInput}
                 placeholder="10001"
-                pattern="\d{5}"
                 maxLength={5}
               />
-
               {errors.zipCode && (
                 <p className={styles.error}>{errors.zipCode}</p>
               )}
