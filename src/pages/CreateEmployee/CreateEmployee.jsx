@@ -36,6 +36,32 @@ function CreateEmployee() {
   });
 
   /**
+   * ==============================
+   * STATE POUR LES MESSAGES D'ERREUR
+   * ==============================
+   * Permet d'afficher les erreurs directement sous les champs
+   * du formulaire au lieu d'utiliser uniquement des alert().
+   */
+  const [errors, setErrors] = useState({});
+
+  /**
+   * ==============================
+   * LIMITES DE DATES
+   * ==============================
+   * Ajout d'une logique métier réaliste :
+   * - âge minimum pour travailler : 16 ans
+   * - âge maximum cohérent : 100 ans
+   */
+
+  const today = new Date();
+
+  const minBirthDate = new Date();
+  minBirthDate.setFullYear(today.getFullYear() - 100);
+
+  const maxBirthDate = new Date();
+  maxBirthDate.setFullYear(today.getFullYear() - 16);
+
+  /**
    * Gestionnaire pour les champs texte
    * @param {React.ChangeEvent<HTMLInputElement>} e - Événement change
    */
@@ -66,8 +92,83 @@ function CreateEmployee() {
    * Soumet le formulaire et dispatche l'action Redux
    */
   const handleSubmit = () => {
-    if (!form.firstName || !form.lastName) {
-      alert("First name and last name are required.");
+    /**
+     * ==============================
+     * RÉINITIALISATION DES ERREURS
+     * ==============================
+     */
+
+    const newErrors = {};
+
+    /* VALIDATION NOM / PRÉNOM */
+
+    if (form.firstName.trim().length < 3) {
+      newErrors.firstName = "First name must contain at least 3 characters.";
+    }
+
+    if (form.lastName.trim().length < 3) {
+      newErrors.lastName = "Last name must contain at least 3 characters.";
+    }
+
+    /**
+     * ==============================
+     * VALIDATION DATE DE NAISSANCE
+     * ==============================
+     */
+
+    if (!form.dateOfBirth) {
+      newErrors.dateOfBirth = "Date of birth is required.";
+    } else {
+      const age = today.getFullYear() - form.dateOfBirth.getFullYear();
+
+      if (age < 16) {
+        newErrors.dateOfBirth = "Employee must be at least 16 years old.";
+      }
+
+      if (age > 100) {
+        newErrors.dateOfBirth = "Employee age cannot exceed 100 years.";
+      }
+    }
+
+    /**
+     * ==============================
+     * VALIDATION DATE D'EMBAUCHE
+     * ==============================
+     */
+
+    if (!form.startDate) {
+      newErrors.startDate = "Start date is required.";
+    } else {
+      if (form.startDate > today) {
+        newErrors.startDate = "Start date cannot be in the future.";
+      }
+
+      if (form.dateOfBirth && form.startDate < form.dateOfBirth) {
+        newErrors.startDate = "Start date cannot be before birth date.";
+      }
+    }
+
+    /**
+     * ==============================
+     * VALIDATION ZIP CODE
+     * ==============================
+     */
+
+    const zipRegex = /^\d{5}$/;
+
+    if (!zipRegex.test(form.zipCode)) {
+      newErrors.zipCode = "Zip code must contain exactly 5 digits.";
+    }
+
+    /**
+     * ==============================
+     * BLOQUE LA SOUMISSION
+     * SI ERREURS
+     * ==============================
+     */
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
@@ -86,6 +187,8 @@ function CreateEmployee() {
     );
 
     setIsModalOpen(true);
+
+    setErrors({});
 
     // Remet le formulaire à zéro
     setForm({
@@ -120,7 +223,14 @@ function CreateEmployee() {
                 value={form.firstName}
                 onChange={handleInput}
                 placeholder="Alice"
+                required
+                minLength={3}
               />
+
+              {/* Affichage erreur */}
+              {errors.firstName && (
+                <p className={styles.error}>{errors.firstName}</p>
+              )}
             </div>
 
             <div className={styles.field}>
@@ -132,7 +242,13 @@ function CreateEmployee() {
                 value={form.lastName}
                 onChange={handleInput}
                 placeholder="Dupont"
+                required
+                minLength={3}
               />
+
+              {errors.lastName && (
+                <p className={styles.error}>{errors.lastName}</p>
+              )}
             </div>
           </div>
 
@@ -146,8 +262,13 @@ function CreateEmployee() {
                 placeholderText="Select date"
                 showYearDropdown
                 dropdownMode="select"
-                maxDate={new Date()}
+                minDate={minBirthDate}
+                maxDate={maxBirthDate}
               />
+
+              {errors.dateOfBirth && (
+                <p className={styles.error}>{errors.dateOfBirth}</p>
+              )}
             </div>
 
             <div className={styles.field}>
@@ -159,7 +280,12 @@ function CreateEmployee() {
                 placeholderText="Select date"
                 showYearDropdown
                 dropdownMode="select"
+                maxDate={today}
               />
+
+              {errors.startDate && (
+                <p className={styles.error}>{errors.startDate}</p>
+              )}
             </div>
           </div>
         </section>
@@ -214,7 +340,13 @@ function CreateEmployee() {
                 value={form.zipCode}
                 onChange={handleInput}
                 placeholder="10001"
+                pattern="\d{5}"
+                maxLength={5}
               />
+
+              {errors.zipCode && (
+                <p className={styles.error}>{errors.zipCode}</p>
+              )}
             </div>
           </div>
         </section>
